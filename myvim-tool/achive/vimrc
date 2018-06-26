@@ -1,0 +1,61 @@
+"高亮第80列
+set colorcolumn=80
+
+"显示行号
+set nu
+
+"显示黑色底色色调
+set bg=dark
+
+"设置tab等同8个空格长度
+set tabstop=8
+
+"设置缩进长度为8个空格长度，最好和tabstop一样
+set shiftwidth=8
+
+"设置C语言自动缩进
+set cindent
+
+"设置ctags相关内容
+set tags=tags;
+map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+"nnoremap <c-]> g<c-]>
+"vnoremap <c-]> g<c-]>
+
+"设置cscope工具
+if has("cscope")
+set csprg=/usr/bin/cscope " 指定用来执行cscope的命令
+set csto=0 " 设置cstag命令查找次序：0先找cscope数据库再找标签文件；1先找标签文件再找cscope数据库
+set cst " 同时搜索cscope数据库和标签文件
+set cscopequickfix=s-,c-,d-,i-,t-,e- " 使用QuickFix窗口来显示cscope查找结果
+nmap <C-n> :cnext<CR>
+nmap <C-p> :cprev<CR>
+set nocsverb
+if filereadable("cscope.out") " 若当前目录下存在cscope数据库，添加该数据库到vim
+cs add cscope.out
+endif
+set csverb
+" 将:cs find c等Cscope查找命令映射为<C-_>c等快捷键（按法是先按Ctrl+Shift+-, 然后很快再按下c）
+nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR> :copen<CR><CR>
+nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR> :copen<CR><CR>
+nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR> :copen<CR><CR>
+nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR> :copen<CR><CR>
+nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR> :copen<CR><CR>
+nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR> :copen<CR><CR>
+nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR> :copen<CR><CR>
+nmap <C-_>i :cs find i <C-R>=expand("<cfile>")<CR><CR> :copen<CR><CR>
+endif
+
+"设置winmanager插件
+nmap wm :WMToggle<cr>
+
+"设置自动补全OmniCppComplete插件
+set completeopt=menu,menuone  
+let OmniCpp_MayCompleteDot=1		" autocomplete with .
+let OmniCpp_MayCompleteArrow=1		" autocomplete with ->
+let OmniCpp_MayCompleteScope=1		" autocomplete with ::
+let OmniCpp_NamespaceSearch=2		" search namespaces in this and included files
+let OmniCpp_GlobalScopeSearch=1 	" enable the global scope search
+"let OmniCpp_DefaultNamespace=["std"]
+let OmniCpp_ShowPrototypeInAbbr=1	" show function prototype in popup window
+let OmniCpp_SelectFirstItem = 2		" select first item (but don't insert)
